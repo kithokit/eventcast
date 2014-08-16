@@ -1,0 +1,116 @@
+
+<!doctype html>
+<html lang="en" manifest="cache.manifest">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="description" content="post meetup, tweet meetup">
+<meta name="keywords" content="post meetup, tweet meetup, post on facebook, meetup on FB">
+<title>Eventcast</title>
+
+		<script>
+  //reset type=date inputs to text
+  $( document ).bind( "mobileinit", function(){
+    $.mobile.page.prototype.options.degradeInputs.date = true;
+  });
+</script>
+
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/
+	jquery.mobile-1.1.1.min.css"/>
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+
+	<link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" />
+  <script src="jQuery.ui.datepicker.js"></script>
+  <script src="jquery.ui.datepicker.mobile.js"></script>
+
+
+	<meta name="viewport" content="width-device-width,
+	initial-scale=1, maximum-scale=1" />
+
+
+
+
+
+
+<style>
+
+body {
+		background:#2E2E2E;
+		    }
+
+.centerblock {
+	position:absolute;
+    width: 300px;}
+
+a
+{
+    text-decoration:none !important;
+    font-family:helvetica !important;
+    color:white !important;
+	text-shadow:0 0 0;
+    background:red !important;
+}
+.ui-input-text
+{
+height: 25px !important;
+}
+textarea.ui-input-text
+{
+    height:100px !important;
+}
+
+
+</style>
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+<div data-role="page" class="wrapper" id="main">
+
+	<header data-role="header">
+	<p align="center"><b><font size="5"><image src="/images/logo_j.jpg">
+	<br>Eventcast</font></b>
+	<br>
+    <font size="2">Post your Meetup to the World</font>
+	</p>
+	</header>
+
+
+
+<p></p>
+
+
+
+ <ul data-role="listview" align="center">
+ <image src="images/thankyou.gif">
+ <h2><p><li>Great, your event has been posted<br>
+ and broadcasted.<br>
+ Thank you for using Eventcast.</p></h2>
+ </li>
+ </p>
+
+ 	<a href="/castout" data-role="button" type="launchbutton" name='applaunch'>Post another event</a>
+
+ </ul>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

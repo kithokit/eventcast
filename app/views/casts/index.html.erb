@@ -1,0 +1,115 @@
+
+<!doctype html>
+<html lang="en" manifest="cache.manifest">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="description" content="Meetup Tweetbook">
+<meta name="keywords" content="post meetup, tweet meetup, post on facebook, meetup on FB">
+<title>Eventcast</title>
+
+
+
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/
+	jquery.mobile-1.1.1.min.css"/>
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+
+
+	<meta name="viewport" content="width-device-width,
+	initial-scale=1, maximum-scale=1" />
+
+
+
+
+
+<style>
+
+.centerblock {
+	position:absolute;
+    width: 300px;}
+
+div.ui-btn, input[type="submit"]
+{
+    text-decoration:none !important;
+    font-family:helvetica !important;
+    color:white !important;
+	  text-shadow:0 0 0;
+    background:red !important;
+}
+.ui-input-text
+{
+height: 25px !important;
+}
+textarea.ui-input-text
+{
+    height:100px !important;
+}
+</style>
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+<div data-role="page" class="wrapper" id="main">
+
+	<header data-role="header">
+	<p align="center"><b><font size="5"><image src="images/logo_j.jpg">
+	Eventcast</font></b>
+	<br>
+    <font size="2">Post your Meetup to the World</font>
+	</p>
+	</header>
+
+
+
+
+
+	<h2 style="text-align:center">Loggin</h2>
+
+ <ul data-role="listview">
+ <li>
+ <p align="center">
+ <form method="get" enctype="multipart/form-data"
+ name="myemailform" action="/castout">
+	<div class="center">
+	<p>
+		<H2><label for='name'>Username: </label></H2>
+		<input type="text" name="name">
+	<br>
+		<H2><label for='pwd'>Password:</label></H2>
+		<input type="text" name="pwd">
+	</p>
+	</div>
+	<p>
+	<input type="submit" name='submit' value="Submit">
+</form>
+ </p>
+</li>
+	</ul>
+	  <div>
+	  <footer data-role="footer">
+	  <nav data-role="navbar">
+	  <p align="center">
+    <img border="0" src="images/loudspeakwave.gif">
+	  <br>
+	  </p>
+	</footer>
+	</div>
+
+
+	</div>
+
+
+
+
+</body>
+
+</html>

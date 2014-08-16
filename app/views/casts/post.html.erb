@@ -1,0 +1,174 @@
+
+<!doctype html>
+<html lang="en" manifest="cache.manifest">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="description" content="Meetup Tweetbook">
+<meta name="keywords" content="post meetup, tweet meetup, post on facebook, meetup on FB">
+<title>Eventcast</title>
+<script>
+  //reset type=date inputs to text
+  $( document ).bind( "mobileinit", function(){
+    $.mobile.page.prototype.options.degradeInputs.date = true;
+  });
+</script>
+
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/
+	jquery.mobile-1.1.1.min.css"/>
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+
+	<link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" />
+  <script src="jQuery.ui.datepicker.js"></script>
+  <script src="jquery.ui.datepicker.mobile.js"></script>
+
+
+	<meta name="viewport" content="width-device-width,
+	initial-scale=1, maximum-scale=1" />
+<style>
+.centerblock {
+	position:absolute;
+    width: 300px;}
+
+div.ui-btn, input[type="submit"]
+{
+  text-decoration:none !important;
+  font-family:helvetica !important;
+  color:white !important;
+  text-shadow:0 0 0;
+  background:red !important;
+}
+.ui-input-text
+{
+height: 25px !important;
+}
+textarea.ui-input-text
+{
+    height:100px !important;
+}
+#wait {
+		position: fixed;
+		opacity: 0;
+		left: 20%;
+		top: 30px;
+		font-family: garamond, arial, sans-serif;
+		font-weight: bold;
+		font-size:30px;
+		text-shadow: 2px 5px 20px #000000;
+		color:#000000;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<div data-role="page" class="wrapper" id="main">
+
+	<header data-role="header">
+	<p align="center"><b><font size="5"><image src="images/logo_j.jpg">
+	Eventcast</font></b>
+	<br>
+    <font size="2">Post your Meetup to the World</font>
+	</p>
+	</header>
+  <h2 style="text-align:center">Post a Meetup</h2>
+
+ <ul data-role="listview">
+ <li>
+
+ <form method="get" enctype="multipart/form-data"
+    name="castform" id="castformid" action="/submit">
+	<H2>
+		<label for='group'>Choose Group: </label>
+    <select id="select-choice-1">
+       <%= options_for_select( @events.reverse ) %>
+    </select>
+	<br>
+		<H2><label for='title'>Title:</label>
+		<input type="text" placeholder="Our Next Event" name="title">
+	<br>
+		<label for="dater">Date:</label>
+		<input type="date" name="date" id="date" value=""  />
+	<br>
+		<label for='title'>Start Time:</label>
+		<input type="time" name="time1">
+	<br>
+		<label for='title'>End Time:</label>
+		<input type="time" name="time2">
+	<br>
+		<label for='descp'>Description:</label>
+		<textarea cols="40" rows="10" name="desc" id="desc" placeholder="Your event description..."></textarea>
+	<br>
+		<label for='msg1'>Invite Message:</label>
+		<input id="msg01" placeholder="Place your invite message here!" name="msg01"></H2>
+	<br>
+		<div data-role="fieldcontain">
+ 	<fieldset data-role="controlgroup" data-type="horizontal">
+		<H2><legend>Media to Share:</legend></H2>
+		<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
+		<label for="checkbox-1"><img src="images/facebook.jpg"></label>
+		<input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" />
+		<label for="checkbox-2"><img src="images/twitter.jpg"></label>
+		<input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" />
+		<label for="checkbox-3"><img src="images/weibo.jpg"></label>
+		<input type="checkbox" name="checkbox-4" id="checkbox-4" class="custom" />
+		<label for="checkbox-4"><img src="images/mailchimp.jpg"></label>
+    </fieldset>
+		</div>
+	<input id="submitbtn" type="submit" onclick="castgo();">
+</form>
+ </p>
+</li>
+	</ul>
+<script type="text/javascript">
+function waitfunc()
+{
+  document.getElementById('wait').style.opacity="0.8";
+}
+
+function castgo(){
+  $("#castformid").submit(function(e)
+  {
+      var postData = $(this).serializeArray();
+      var formURL = $(this).attr("action");
+      $.ajax(
+      {
+          url : formURL,
+          type: "POST",
+          data : postData,
+          success:function(data, textStatus, jqXHR)
+          {
+              window.location.href = '/thanks';
+          },
+          error: function(jqXHR, textStatus, errorThrown)
+          {
+              //if fails
+          }
+      });
+      e.preventDefault(); //STOP default action
+      e.unbind(); //unbind. to stop multiple form submit.
+  });
+}
+</script>
+	  <div>
+	  <footer data-role="footer">
+	  <nav data-role="navbar">
+	  <p align="center">
+    <img border="0" src="images/loudspeakwave.gif">
+	  <br>
+	  </p>
+	</footer>
+</div>
+<div id="wait">
+  <p align="center">
+  <img src="loading.gif" alt="Loading" />  <br>
+  Submitting</p>
+</div>
+
+</body>
+
+</html>
