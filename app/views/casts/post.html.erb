@@ -20,11 +20,6 @@
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
 
-	<link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" />
-  <script src="jQuery.ui.datepicker.js"></script>
-  <script src="jquery.ui.datepicker.mobile.js"></script>
-
-
 	<meta name="viewport" content="width-device-width,
 	initial-scale=1, maximum-scale=1" />
 <style>
@@ -91,6 +86,10 @@ textarea.ui-input-text
 		<H2><label for='title'>Title:</label>
 		<input type="text" placeholder="Our Next Event" name="title">
 	<br>
+    <label for='group'>Choose Place: </label>
+    <select id="select-choice-2">
+       <%= options_for_select( @places ) %>
+    </select>
 		<label for="dater">Date:</label>
 		<input type="date" name="date" id="date" value=""  />
 	<br>
@@ -119,7 +118,7 @@ textarea.ui-input-text
 		<label for="checkbox-4"><img src="images/mailchimp.jpg"></label>
     </fieldset>
 		</div>
-	<input id="submitbtn" type="submit" onclick="castgo();">
+	<input id="submitbtn" type="submit" value="Schedule it" onclick="castgo();">
 </form>
  </p>
 </li>
@@ -162,11 +161,6 @@ function castgo(){
 	  <br>
 	  </p>
 	</footer>
-</div>
-<div id="wait">
-  <p align="center">
-  <img src="loading.gif" alt="Loading" />  <br>
-  Submitting</p>
 </div>
 
 </body>

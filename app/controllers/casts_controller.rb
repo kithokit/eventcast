@@ -6,17 +6,8 @@ require 'json'
 require 'date'
 
 class CastsController < ApplicationController
-
   def index
     render 'welcome'
-  end
-
-  def nth
-    render :text => "I'm a text"
-  end
-
-  def login
-    render 'index'
   end
 
   def postcast
@@ -25,12 +16,14 @@ class CastsController < ApplicationController
     @time1 = params["time1"]
     @time2 = params["time2"]
     @events = find_events
+    @places = get_venue
+    @venue = @places.first["name"]
     @starttime = epochtime(params["date"], params["time1"])
     @endtime = epochtime(params["date"], params["time2"])
     @duration = @endtime.to_i - @starttime.to_i
     @desc = params["desc"]
     @msg = params["msg01"]
-    @url = create_event(@starttime, @duration, @events.last, @desc , params["title"])
+    @url = create_event(@starttime, @duration, @events.last, @desc , params["title"], @places.first)
     if params["checkbox-1"].eql? "on"
       post_facebook(fb_message)
     end
@@ -51,6 +44,7 @@ class CastsController < ApplicationController
     #{@msg}
     #{@title}
     #{@day} From #{@time1} to #{@time2}
+    Place: #{@venue}
     Description:
     #{@desc}
     ----------------------------------------------------
@@ -62,7 +56,7 @@ EOF
 
   def t_message
     d =  <<EOF
-    #{@title} by #{@events.last["name"]} on #{@day} from #{@time1} to #{@time2}. Please sign up here #{@url}
+    #{@title} by #{@events.last["name"]} on #{@day} from #{@time1} to #{@time2} @ #{@venue}. Please sign up here #{@url}
 EOF
     d
   end
@@ -75,6 +69,7 @@ EOF
 
   def castout
     @events = find_events.map { |r| r["name"] }
+    @places = get_venue.map { |r| r["name"] }
     render "post"
   end
 
@@ -89,10 +84,21 @@ EOF
     res["results"]
   end
 
-  def create_event(starttime, duration, meetup_group, desc, name)
+  def get_venue
+    apikey = APP_CONFIG["MEETUP_API"]
+    res = find_events
+    url = "http://api.meetup.com/2/venues"
+    res = JSON.parse(RestClient.get url, {:params => {
+      :group_id => res.reverse.first["id"],
+      :key => apikey,
+    }})
+    res["results"]
+  end
+
+  def create_event(starttime, duration, meetup_group, desc, name, place)
     apikey = APP_CONFIG["MEETUP_API"]
     url = "http://api.meetup.com/2/event"
-    params = {
+    input = {
       :group_id => meetup_group["id"],
       :group_urlname => meetup_group["link"],
       :name => name,
@@ -100,8 +106,10 @@ EOF
       :description => desc,
       :time => starttime,
       :duration => duration,
+      :venue_id => place["id"].to_i,
     }
-    res = JSON.parse(RestClient.post url, params)
+    puts input
+    res = JSON.parse(RestClient.post url, input)
     res["event_url"]
   end
 
@@ -128,4 +136,13 @@ EOF
     end
     client.update(message)
   end
+
+  def nth
+    render 'thanks'
+  end
+
+  def login
+    render 'index'
+  end
+
 end
